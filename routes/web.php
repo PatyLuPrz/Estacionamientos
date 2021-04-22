@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('autos', [AutoController::class, 'index'])->name('autos');
+
+Route::get('autos/create', [AutoController::class, 'create'])->name('autos.create');
+
+Route::post('autos', [AutoController::class, 'store'])->name('autos.store');
+
+Route::get('autos/{auto}', [AutoController::class, 'show'])->name('autos.show');
+
+Route::get('autos/{auto}/edit', [AutoController::class, 'edit'])->name('autos.edit');
+
+Route::put('autos/{auto}', [AutoController::class, 'update'])->name('autos.update');
+
