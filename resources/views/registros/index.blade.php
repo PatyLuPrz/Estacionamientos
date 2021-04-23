@@ -1,20 +1,10 @@
 @extends('layouts/app')
 @section('content')
-
 <div class="container">
     <div class="row">
-        <div class="col-md-8"><h1>Corte</h1></div>
-        <div class="col-md-2"><a class="btn  btn-outline-dark" href="{{ route('cortes.index') }}">Volver a la lista</a></div>
-        <div class="col-md-2"><a class="btn btn-dark" href="{{ route('cortes.edit',$corte->id_corte) }}">Editar el corte</a></div>
-
+        <div class="col-md-10"><h1>Registros</h1></div>
+        <div class="col-md-2"><a class="btn btn-dark" href="{{ route('home') }}">Volver al incio</a></div>
     </div>
-    Fecha: {{$corte->fecha}} <br>
-    Fecha Anterior: {{$corte->fechaAnterior}} <br>
-    Total del Corte: {{$corte->totalCorte}} <br>
-    Total de horas Cobradas: {{$corte->totalHrsCobradas}} <br>
-    Total registrado: {{$corte->totalReg}} <br><br>
-    <hr>
-    <h1>Detalle del corte:</h1>
     <div class="table-responsive">
         <table class="table">
             <thead>
@@ -37,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($detalle as $item)
+                @foreach ($registros as $item)
                     <tr>
                         <td>{{$item->id_registro}}</td>
                         <td>{{$item->fechaentrada}}</td>
@@ -58,8 +48,6 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
-    <br>
+    </div>    
 </div>
-
 @endsection

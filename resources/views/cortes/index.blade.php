@@ -1,7 +1,10 @@
 @extends('layouts/app')
 @section('content')
 <div class="container">
-    <br><h1>CORTES</h1>
+    <div class="row">
+        <div class="col-md-10"><h1>Registros</h1></div>
+        <div class="col-md-2"><a class="btn btn-dark" href="{{ route('home') }}">Volver al incio</a></div>
+    </div>
     <table class="table">
         <thead>
             <tr>
@@ -19,6 +22,5 @@
             <tr>
         </tbody>
     </table>
-
 </div>
 @endsection
