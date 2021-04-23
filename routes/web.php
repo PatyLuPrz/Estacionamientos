@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\AutoController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,15 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('autos', [AutoController::class, 'index'])->name('autos');
+Auth::routes();
 
-Route::get('autos/create', [AutoController::class, 'create'])->name('autos.create');
+Route::get('/', [AutoController::class, 'index'])->name('index');
 
-Route::post('autos', [AutoController::class, 'store'])->name('autos.store');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('autos/{auto}', [AutoController::class, 'show'])->name('autos.show');
+Route::get('/cortes',[App\Http\Controllers\CorteController::class,'index'])->name('cortes.index');
 
-Route::get('autos/{auto}/edit', [AutoController::class, 'edit'])->name('autos.edit');
+Route::get('/cortes/{corte}',[App\Http\Controllers\CorteController::class,'show'])->name('cortes.show');
 
-Route::put('autos/{auto}', [AutoController::class, 'update'])->name('autos.update');
+Route::get('/cortes/{corte}/edit',[App\Http\Controllers\CorteController::class,'index'])->name('cortes.edit');
 
+Route::put('/cortes/{corte}',[App\Http\Controllers\CorteController::class,'update'])->name('cortes.update');
