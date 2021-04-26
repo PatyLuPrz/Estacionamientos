@@ -6,12 +6,15 @@ use App\Models\Corte;
 use App\Models\DetalleCorte;
 use App\Models\Registro;
 use Illuminate\Http\Request;
+use PhpParser\Node\Expr\Cast\Array_;
+use stdClass;
 
 class CorteController extends Controller
 {
     public function Index(){
         $cortes = Corte::all();
-        return view('cortes.index',compact('cortes'));
+        $detalles = Registro::join("detalle_cortes","detalle_cortes.id_registro", "=", "registros.id_registro")->select('*')->get();
+        return view('cortes.index',compact('cortes','detalles'));
     }
 
     public function Show($id_corte){
