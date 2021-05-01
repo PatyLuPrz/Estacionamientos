@@ -13,8 +13,23 @@ class CorteController extends Controller
 {
     public function Index(){
         $cortes = Corte::all();
-        $detalles = Registro::join("detalle_cortes","detalle_cortes.id_registro", "=", "registros.id_registro")->select('*')->get();
-        return view('cortes.index',compact('cortes','detalles'));
+        $resultado = array();
+        // $detalles = Registro::join("detalle_cortes","detalle_cortes.id_registro", "=", "registros.id_registro")->select('*')->get();
+        foreach ($cortes as $corte){
+            $detalle = Registro::join("detalle_cortes","detalle_cortes.id_registro", "=", "registros.id_registro")
+            ->where("detalle_cortes.id_corte", "=", $corte->id_corte)->select('*')->get();
+            $arr = array(
+                'id_corte' => $corte->id_corte,
+                'fecha' => $corte->fecha,
+                'fechaAnterior' => $corte->fechaAnterior,
+                'totalCorte' => $corte->totalCorte,
+                'totalReg' => $corte->totalReg,
+                'detalle' => $detalle,
+            );
+            array_push($resultado,json_encode($arr));
+        }
+        
+        return view('cortes.index',compact('resultado'));
     }
 
     public function Show($id_corte){

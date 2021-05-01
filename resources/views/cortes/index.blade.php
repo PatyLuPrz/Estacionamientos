@@ -1,4 +1,74 @@
 @extends('layouts/app')
+<link href="{{ asset('assets/css/jquery.treegrid.css') }}" rel="stylesheet">
+@section('content')
+    <table class="table table-bordered tree-basic">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Fecha</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{$contador = 0}}
+            @foreach ($resultado as $value)
+                {{$contador=$contador+1}}
+                <tr class="treegrid-{{json_decode($value)->id_corte}} expanded">
+                    <td>{{json_decode($value)->id_corte}}</td>
+                    <td>{{json_decode($value)->fecha}}</td>
+                    @if (count(json_decode($value)->detalle) != 0)
+                        </tr>
+                            @if (count(json_decode($value)->detalle))
+                                @for ($i = 0; $i < count(json_decode($value)->detalle); $i++)
+                                    <tr class="treegrid-parent-{{json_decode($value)->id_corte}}">
+                                        <td>{{json_decode($value)->detalle[$i]->id_registro}}</td>
+                                        <td>{{json_decode($value)->detalle[$i]->fechaentrada}}</td>
+                                        <td>{{json_decode($value)->detalle[$i]->totalPagado}}</td>
+                                    </tr>    
+                                @endfor           
+                            @else
+                                <tr class="treegrid-parent-{{json_decode($value)->id_corte}}">
+                                    <td>{{json_decode($value)->detalle[0]->id_registro}}</td>
+                                    <td>{{json_decode($value)->detalle[$i]->fechaentrada}}</td>
+                                    <td>{{json_decode($value)->detalle[0]->totalPagado}}</td>
+                                </tr>    
+                            @endif
+                    @endif
+                </tr>
+            @endforeach
+        </tbody>
+    </table>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{{ asset('assets/js/jquery.treegrid.min.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.tree-basic').treegrid();
+            })
+    </script>
+@endsection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{{-- @extends('layouts/app')
 @section('content')
 <div class="container">
     <div class="row">
@@ -68,4 +138,4 @@
             </div>
         @endforeach
     </div>
-@endsection
+@endsection --}}
