@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AutoController;
+use App\Models\Registro;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,3 +37,20 @@ Route::get('/registros/{registro}',[App\Http\Controllers\RegistroController::cla
 Route::get('/registros/{registro}/edit',[App\Http\Controllers\RegistroController::class,'index'])->name('registros.edit');
 
 Route::put('/registros/{registro}',[App\Http\Controllers\RegistroController::class,'update'])->name('registros.update');
+
+Route::get('/send-mail', function () {
+    $registros = Registro::all();
+    $details = [
+        'title' => 'Reporte de Registros',
+        'body' => $registros
+    ];
+   
+    \Mail::to('may.patrics@gmail.com')->send(new \App\Mail\MyTestMail($details));
+   
+    echo("
+        <script>
+            alert('El mensaje ha sido enviado');
+            window.history.back();
+        </script>
+    ");
+})->name('send.mail');

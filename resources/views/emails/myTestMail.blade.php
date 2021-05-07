@@ -1,13 +1,31 @@
-@extends('layouts/app')
-@section('content')
-<div class="container">
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+    
+        <title>{{ config('app.name', 'Laravel') }}</title>
+    
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}" defer></script>
+    
+        <!-- Fonts -->
+        <link rel="dns-prefetch" href="//fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    
+        <!-- Styles -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    </head>
+<body>
+    <h1>{{ $details['title'] }}</h1>
     <div class="row">
-        <div class="col-md-7"><h1>Registros</h1></div>
-        <div class="col-md-2"><a class="btn btn-dark" href="{{ route('home') }}">Volver al incio</a></div>
-        <div class="col-md-3"><a class="btn btn-dark" href="{{ route('send.mail') }}">Enviar reporte por email</a></div>
+        <div class="col-md-10"><h1>Registros</h1></div>
     </div>
     <div class="table-responsive">
-        <table class="table" id="myTable">
+        <table class="table">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -28,7 +46,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($registros as $item)
+                @foreach ($details['body'] as $item)
                     <tr>
                         <td>{{$item->id_registro}}</td>
                         <td>{{$item->fechaentrada}}</td>
@@ -50,25 +68,6 @@
             </tbody>
         </table>
     </div>    
-</div>
-@endsection
-@section('foot')
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.0/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.7.0/js/buttons.print.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready( function () {
-        $('#myTable').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
-        });
-        } );
-    </script>
-@endsection
+    <p>¡Gracias!</p>
+</body>
+</html>
