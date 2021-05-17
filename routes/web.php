@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\AutoController;
-use App\Models\Registro;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\CorteController;
+use App\Http\Controllers\DetalleCorteController;
+use App\Http\Controllers\MailController;
+use App\Http\Controllers\RegistroController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +25,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/cortes',[App\Http\Controllers\CorteController::class,'index'])->name('cortes.index');
 
+Route::put('/cortes/create',[\App\Http\Controllers\CorteController::class,'create'])->name('cortes.create');
+
 Route::get('/cortes/{corte}',[App\Http\Controllers\CorteController::class,'show'])->name('cortes.show');
 
 Route::get('/cortes/{corte}/edit',[App\Http\Controllers\CorteController::class,'edit'])->name('cortes.edit');
@@ -38,19 +41,4 @@ Route::get('/registros/{registro}/edit',[App\Http\Controllers\RegistroController
 
 Route::put('/registros/{registro}',[App\Http\Controllers\RegistroController::class,'update'])->name('registros.update');
 
-Route::get('/send-mail', function () {
-    $registros = Registro::all();
-    $details = [
-        'title' => 'Reporte de Registros',
-        'body' => $registros
-    ];
-   
-    \Mail::to('may.patrics@gmail.com')->send(new \App\Mail\MyTestMail($details));
-   
-    echo("
-        <script>
-            alert('El mensaje ha sido enviado');
-            window.history.back();
-        </script>
-    ");
-})->name('send.mail');
+Route::get('/send-mail', [App\Http\Controllers\MailController::class,'send'])->name('send.mail');

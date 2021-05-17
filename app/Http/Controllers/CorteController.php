@@ -23,6 +23,7 @@ class CorteController extends Controller
                 'fecha' => $corte->fecha,
                 'fechaAnterior' => $corte->fechaAnterior,
                 'totalCorte' => $corte->totalCorte,
+                'totalHrsCobradas' => $corte->totalHrsCobradas,
                 'totalReg' => $corte->totalReg,
                 'detalle' => $detalle,
             );
@@ -46,6 +47,17 @@ class CorteController extends Controller
 
     public function Update(Request $request,$id_corte){
         $corte = Corte::all()->where('id_corte',$id_corte)->first();
+        $corte->fecha = $request->fecha;
+        $corte->fechaAnterior = $request->fechaAnterior;
+        $corte->totalCorte = $request->totalCorte;
+        $corte->totalHrsCobradas = $request->totalHrsCobradas;
+        $corte->totalReg = $request->totalReg;
+        $corte->save();
+        return redirect()->route('cortes.index');
+    }
+
+    public function Create(Request $request){
+        $corte = new Corte();
         $corte->fecha = $request->fecha;
         $corte->fechaAnterior = $request->fechaAnterior;
         $corte->totalCorte = $request->totalCorte;
